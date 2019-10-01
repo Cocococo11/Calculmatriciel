@@ -6,25 +6,26 @@ M = diag(diag(A));
 somme=0;
 
 taille = size(B);
-l = taille(1,1);
-X0 = ones(l,1);
+L = taille(1,1);
+X0 = ones(L,1);
 
 
 
-while (min(abs((A.*X0)-B))>=0.0001)
-    for i=1:l
-        Xt = zeros(l,1);
-        for j=1:l 
+while (max(abs((A*X0)-B))>=0.0001)
+    for i=1:L
+        %Xt = zeros(L,1);
+        somme =0;
+        for j=1:L 
             if (j~=i)
         
-                somme = A(i,j).*X0(j,1) ;
+                somme = somme + A(i,j)*X0(j,1) ;
             end
         end
-        Xt(i,1)=(B(i,1)-somme)./A(i,i);
+        Xt(i,1)=(B(i,1)-somme)/A(i,i);
         
         
     end
-    X0 = Xt;
+    X0 = Xt
 end
 
 X=X0;
